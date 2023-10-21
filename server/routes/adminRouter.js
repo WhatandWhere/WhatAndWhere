@@ -1,16 +1,8 @@
-const Router = require('express').Router;
-const router = new Router();
+const Router = require('express').Router();
+const adminController = require('../controllers/adminController');
 
-router.get('/users', (req, res) => {
-    // List all users here.
-});
+Router.get('/users', adminController.listUsers);
+Router.put('/users/:userId', adminController.updateUser);
+Router.delete('/users/:userId', adminController.deleteUser);
 
-router.put('/users/:id', (req, res) => {
-    // Update user roles/permissions here.
-});
-
-router.delete('/users/:id', (req, res) => {
-    // Delete a user here.
-});
-
-module.exports = router;
+module.exports = Router;

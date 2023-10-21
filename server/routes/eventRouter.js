@@ -1,24 +1,10 @@
-const Router = require('express').Router;
-const router = new Router();
+const Router = require('express').Router();
+const eventController = require('../controllers/eventController');
 
-router.get('/', (req, res) => {
-    // List all events here.
-});
+Router.get('/', eventController.listEvents);
+Router.post('/', eventController.createEvent);
+Router.get('/:eventId', eventController.getEvent);
+Router.put('/:eventId', eventController.updateEvent);
+Router.delete('/:eventId', eventController.deleteEvent);
 
-router.post('/', (req, res) => {
-    // Create a new event here.
-});
-
-router.get('/:id', (req, res) => {
-    // Get details of a specific event here.
-});
-
-router.put('/:id', (req, res) => {
-    // Update a specific event here.
-});
-
-router.delete('/:id', (req, res) => {
-    // Delete a specific event here.
-});
-
-module.exports = router;
+module.exports = Router;

@@ -1,20 +1,9 @@
-const Router = require('express').Router;
-const router = new Router();
+const Router = require('express').Router();
+const profileController = require('../controllers/profileController');
 
-router.get('/', (req, res) => {
-    // Retrieve user profile details here.
-});
+Router.get('/', profileController.getProfile);
+Router.put('/', profileController.updateProfile);
+Router.post('/avatar', profileController.uploadAvatar);
+Router.put('/password', profileController.changePassword);
 
-router.put('/', (req, res) => {
-    // Update user profile details here.
-});
-
-router.post('/avatar', (req, res) => {
-    // Upload a new profile avatar here.
-});
-
-router.put('/password', (req, res) => {
-    // Change user password here.
-});
-
-module.exports = router;
+module.exports = Router;
