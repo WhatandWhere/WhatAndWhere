@@ -1,0 +1,32 @@
+/* Styling the Map Container */
+.MapContainer {
+  width: 100%;
+  height: 64vh;
+  z-index: 1;
+}
+
+/* Styling the Map Popup */
+.MapContainer .leaflet-popup-content {
+  width: 80%; /* 80% of the container width */
+  padding: 1em;
+  background-color: #fff;
+  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+}
+
+/* Styling the Map Marker */
+.MapContainer .leaflet-marker-icon {
+  color: #ff5733; /* Marker color */
+}
+
+/* Styling the Map Marker Popup */
+.MapContainer .leaflet-popup-content-wrapper {
+  background-color: #fff;
+  border-radius: 0.5em;
+  padding: 1em;
+}
+
+/* Styling the Map Attribution Control */
+.MapContainer .leaflet-control-attribution {
+  font-size: 1em;
+  color: #555;
+}

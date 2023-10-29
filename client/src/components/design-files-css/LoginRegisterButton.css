@@ -1,0 +1,42 @@
+.form-button {
+    background: linear-gradient(
+            90deg,
+            rgba(255, 86, 0, 1) 40%,
+            rgb(0, 0, 0, 1) 100%
+    );
+    color: #f5f7f6;
+    padding: 7px 14px;
+    border: none;
+    cursor: pointer;
+    width: 230px;
+    border-radius: 30px;
+    height: 44px;
+    font-size: 26px;
+    font-family: Arial Rounded MT;
+    margin-top: 20px;
+    display: inline-block;
+}
+
+.form-button:hover {
+    /* background: linear-gradient(
+      -90deg,
+      rgba(255, 86, 0, 1) 40%,
+      rgb(187, 188, 188, 1) 100%
+    ); */
+
+    background: linear-gradient(
+            180deg,
+            rgba(196, 170, 138, 1) 0%,
+            rgba(255, 86, 0, 1) 60%
+    );
+    box-shadow: 0 8px 16px 0 rgba(255, 86, 0, 1),
+    0 6px 20px 0 rgba(196, 170, 138, 1);
+
+    transition: background 0.3s ease;
+}
+
+.form-button:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}

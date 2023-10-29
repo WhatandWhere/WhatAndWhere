@@ -1,0 +1,45 @@
+/* Styling the TopBar Container */
+.top-bar {
+    width: 100%;
+    height: 11vh;
+    padding: 0.3rem;
+    display: flex;
+    align-items: center;
+}
+
+.top-bar .smb button {
+    align-items: center;
+    margin-left: 33%;
+    background: none;
+    border: none;
+}
+
+.top-bar .smb img {
+    width: 2rem; /* Adjust the size as needed */
+    height: 2rem; /* Adjust the size as needed */
+    margin-right: 0.5rem; /* Adjust the margin as needed */
+    align-items: center;
+}
+  
+  /* Styling the logo */
+.top-bar .logo {
+    height: 5rem;
+    width: 5rem;
+    align-items: center;
+    margin-left: 33%;
+}
+  
+.top-bar .logo img {
+    width: 2rem; /* Adjust the size as needed */
+    height: 2rem; /* Adjust the size as needed */
+    margin-right: 0.5rem; /* Adjust the margin as needed */
+    align-items: center;
+}
+  
+/* Styling the header */
+.top-bar .header {
+    font-size: 5rem; /* Adjust the font size as needed */
+    font-family: Arial Rounded MT Bold; /* Specify your font family */
+    text-align: center;
+}
+  

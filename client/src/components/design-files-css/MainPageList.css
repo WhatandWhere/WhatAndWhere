@@ -1,0 +1,80 @@
+.event-list-container {
+    bottom: 0;
+    width: 100%;
+    background: transparent; /* Remove gradient background from the page */
+    overflow-x: auto; /* Allow scrolling */
+    scrollbar-width: thin;
+    white-space: nowrap;
+    text-align: left;
+}
+
+.event-list-container::-webkit-scrollbar {
+    width: 6px; /* Adjust the scrollbar width as needed */
+}
+
+.event-list-container::-webkit-scrollbar-track {
+    background: transparent; /* Make the scrollbar track transparent */
+}
+
+.event-list-container .event-name {
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden; /* Hide overflowing text */
+    text-overflow: ellipsis; /* Add ellipsis (...) for overflow */
+    max-width: 100%; /* Set the maximum width for the description and name */
+    font-size: 1.15rem; /* Adjust font size as needed */
+}
+
+.event-list-container .event-description {
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden; /* Hide overflowing text */
+    text-overflow: ellipsis; /* Add ellipsis (...) for overflow */
+    max-width: 100%;
+    font-size: 1rem;
+}
+
+.event-list-container .event-list {
+    max-width: 100%;
+    display: flex;
+    flex-wrap: nowrap; /* prevent wrapping, items will be in one line */
+    justify-content: flex-start; /* align items to the start of container */
+    align-items: center;
+}
+
+.event-list-container .event-item {
+    display: inline-block;
+    background: #BBBCBC;
+    border-radius: 10px;
+    margin: 0.7rem; /* Adjust margin for spacing */
+    cursor: pointer;
+    transition: transform 0.2s;
+    width: 10%;
+    min-width: 15rem;
+    height: 15rem;
+}
+
+.event-list-container .event-image {
+    max-width: 100%; /* Adjust the image size as needed */
+    max-height: 15rem;
+    border-radius: 10px;
+}
+
+.event-list-container .event-item:hover {
+    transform: scale(1.05);
+}
+
+.event-list-container .event-item-content {
+    padding: 0.7rem;
+}
+
+.event-tags {
+    display: flex;
+    gap: 0.5rem; /* Space between tags */
+    padding-top: 0.5rem; /* Space above the tags */
+}
+
+.event-tag {
+    background: white;
+    padding: 0.25rem 0.5rem; /* Adjust as necessary */
+    border-radius: 5px; /* Adjust as necessary */
+    font-size: 0.65rem; /* Smaller than the description font */
+}
