@@ -1,0 +1,54 @@
+.user-profile {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* This centers the elements horizontally */
+    padding: 2rem;
+    font-family: Arial, sans-serif;
+}
+
+.profile-pic {
+    height: calc((3 * (1rem + 1.2rem + 1rem)) + 1.2rem + 2rem + 3rem); /* height of 3 input fields + button + margin */
+    width: auto; /* Adjusts width according to the height while maintaining aspect ratio */
+    border-radius: 1rem;
+    margin-right: 7rem;
+    object-fit: cover; /* Increased the gap between the image and the input fields */
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+.input-field {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: none;
+    border-radius: 2rem;
+    font-size: 1.2rem;
+    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(235,235,235,1) 100%);
+    outline: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.edit-button {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 2rem;
+    background: linear-gradient(90deg, #ff7a00, #ff5500);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.edit-button:hover {
+    background: linear-gradient(90deg, #ff5500, #ff7a00);
+}
+
+.input-field:focus {
+    background: linear-gradient(90deg, rgba(245,245,245,1) 0%, rgba(225,225,225,1) 100%);
+}
