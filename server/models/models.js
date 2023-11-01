@@ -1,57 +1,84 @@
-const sequelize = require('../db')
-const {DataTypes} = require('sequelize')
+const sequelize = require('../db');
+const { DataTypes } = require('sequelize');
 
 const UserInfo = sequelize.define('userInfo', {
-    username: {type: DataTypes.STRING, primaryKey: true},
-    password: {type: DataTypes.STRING},
-    email: {type: DataTypes.STRING},
-    phoneNumber: {type: DataTypes.STRING},
-    isAdult: {type: DataTypes.BOOLEAN},
-    isManager: {type: DataTypes.BOOLEAN},
-    isAdmin: {type: DataTypes.BOOLEAN}
-})
+    userInfoId: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true },
+    username: { type: DataTypes.STRING, unique: true, allowNull: true },
+    name: { type: DataTypes.STRING },
+    surname: { type: DataTypes.STRING },
+    email: { type: DataTypes.STRING, unique: true },
+    phoneNumber: { type: DataTypes.STRING },
+    birthDate: { type: DataTypes.DATE },
+    password: { type: DataTypes.STRING },
+    isAdmin: { type: DataTypes.BOOLEAN },
+    isManager: { type: DataTypes.BOOLEAN }
+});
 
 const EventDetails = sequelize.define('eventDetails', {
-    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    eventName: {type: DataTypes.STRING},
-    eventDescription: {type: DataTypes.STRING},
-    eventImages: {type: DataTypes.JSON},
-    eventDate: {type: DataTypes.DATE},
-    eventTime: {type: DataTypes.TIME},
-    eventFee: {type: DataTypes.INTEGER},
-    eventCategory: {type: DataTypes.STRING},
-    eventPlaceType: {type: DataTypes.STRING},
-    eventManagerName: {type: DataTypes.STRING},
-    eventLocation: {type: DataTypes.STRING},
-    eventParticipants: {type: DataTypes.INTEGER},
-    eventAttendeeCount: {type: DataTypes.INTEGER}
-})
-
-const ManagerDetails = sequelize.define('managerDetails', {
-    eventManagerID: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    managerUsername: {type: DataTypes.STRING}
+    eventId: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true },
+    eventName: { type: DataTypes.STRING },
+    eventDate: { type: DataTypes.DATE },
+    eventTime: { type: DataTypes.TIME },
+    eventFee: { type: DataTypes.INTEGER },
+    eventPlaceType: { type: DataTypes.STRING },
+    eventManagerName: { type: DataTypes.STRING },
+    eventLocation: { type: DataTypes.STRING },
+    eventParticipants: { type: DataTypes.STRING },  // Assuming VARCHAR type for participants
+    eventAttendeeCount: { type: DataTypes.INTEGER },
+    eventImages: { type: DataTypes.JSON },
+    eventDescription: { type: DataTypes.STRING },
+    territoryId: { type: DataTypes.BIGINT }
 });
 
+const Territory = sequelize.define('territory', {
+    territoryId: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true },
+    name: { type: DataTypes.STRING }
+});
+
+const UserEvents = sequelize.define('userEvents', {
+    userEventsId: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true },
+    eventId: { type: DataTypes.BIGINT },
+    userInfoId: { type: DataTypes.BIGINT }
+});
+
+const Category = sequelize.define('category', {
+    categoryId: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true },
+    categoryName: { type: DataTypes.STRING }
+});
+
+const SubCategory = sequelize.define('subCategory', {
+    subCategoryId: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true },
+    subcategoryName: { type: DataTypes.STRING }
+});
 
 const EventComments = sequelize.define('eventComments', {
-    EventCommentID: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    comment: {type: DataTypes.STRING},
-    rating: {type: DataTypes.INTEGER}
+    eventCommentsId: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },  // Changed EventCommentID to id
+    comment: { type: DataTypes.STRING },
+    rating: { type: DataTypes.INTEGER },
+    createdAt: { type: DataTypes.TIME }
 });
 
-UserInfo.belongsToMany(EventDetails, {through: EventComments})
-EventDetails.belongsToMany(UserInfo, {through: EventComments})
+UserInfo.hasMany(Territory);
+Territory.belongsTo(UserInfo);
 
-UserInfo.hasMany(ManagerDetails)
-ManagerDetails.belongsTo(UserInfo)
+UserInfo.belongsToMany(EventDetails, { through: UserEvents });
+EventDetails.belongsToMany(UserInfo, { through: UserEvents });
 
-ManagerDetails.hasMany(EventDetails)
-EventDetails.belongsTo(ManagerDetails)
+EventDetails.hasMany(EventComments);
+EventComments.belongsTo(EventDetails);
 
+UserInfo.hasMany(EventComments);
+EventComments.belongsTo(UserInfo);
+
+Category.hasMany(SubCategory);
+SubCategory.belongsTo(Category);
 
 module.exports = {
     UserInfo,
     EventDetails,
-    ManagerDetails,
+    Territory,
+    UserEvents,
+    Category,
+    SubCategory,
     EventComments
-}
+};
