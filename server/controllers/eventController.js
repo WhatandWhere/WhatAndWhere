@@ -85,7 +85,7 @@ class EventController {
             const { eventId } = req.params;
             const event = await EventDetails.findByPk(eventId);
             if (!event) {
-                return next(ApiError.notFound('Event not found'));
+                return next(ApiError.internal('Event not found'));
             }
             return res.json(event);
         } catch (error) {
