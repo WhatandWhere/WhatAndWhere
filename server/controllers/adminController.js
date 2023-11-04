@@ -4,7 +4,6 @@ const { User } = require('../models/models');
 class AdminController {
     async listUsers(req, res, next) {
         // List all users logic
-        // ...
     }
 
     async updateUser(req, res, next) {
