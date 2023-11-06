@@ -1,7 +1,7 @@
-import React from 'react';
-import Entry from '../components/Entry.jsx';
+import React from "react";
+import Entry from "../components/Entry.jsx";
 
-import '../components/design-files-css/EntryPage.css';
+import "../components/design-files-css/entry-page/entry-page.css";
 
 const EntryPage = () => {
   return (

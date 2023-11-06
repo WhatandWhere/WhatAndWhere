@@ -1,0 +1,36 @@
+.g-container {
+  margin-bottom: 50px;
+}
+
+.inner-container {
+  padding: 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 60%;
+  margin: 0 auto;
+  margin-bottom: 16px;
+}
+
+.inner-container .primaryText {
+  color: black;
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.inner-container .secondaryText {
+  color: rgba(255, 255, 255, 0.587);
+  color: black;
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.btns {
+  display: flex;
+  gap: 50px;
+  justify-content: center;
+}
