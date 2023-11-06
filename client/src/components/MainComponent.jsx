@@ -1,34 +1,59 @@
-import React from 'react';
-import EventListMainPage from "./EventListMainPage";
-import MapComponent from '../components/MapComponent.jsx';
-import TopBarComponent from '../components/TopBarComponent.jsx';
+import React, { useState } from 'react';
+import EventListMainPage from './EventListMainPage';
+import MapComponent from '../components/MapComponent';
+import TopBarComponent from '../components/TopBarComponent';
+import AddEventModal from '../components/AddEventModal';
 
 const MainComponent = () => {
-    return (
-        <div className="main-page-all">
-            {/* Top Bar Section */}
-            <div className="top-bar">
-                {/* Your top bar content goes here */}
-                <TopBarComponent/>
-            </div>
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [newEventLocation, setNewEventLocation] = useState(null);
 
-            {/* Filters Section */}
-            <div className="filter-section">
-                {/* Your filters content goes here */}
-            </div>
+  const toggleEditMode = () => {
+    setIsEditMode(!isEditMode);
+  };
 
-            {/* Map Section */}
-            <div className="map-section">
-                <MapComponent/>
-            </div>
+  const handleMapClick = (e) => {
+    if (isEditMode) {
+      setNewEventLocation(e.latlng);
+    }
+  };
 
-            {/* List Section */}
-            <div className="list-section">
-                <EventListMainPage/>
-            </div>
-        </div>
-    );
+  const handleCreateEvent = (newEvent) => {
+    // Handle the event creation logic here
+    console.log('New Event Data:', newEvent);
+  };
+
+  return (
+    <div className="main-page-all">
+      <div className="top-bar">
+        <TopBarComponent />
+      </div>
+
+      <div className="filter-section">
+        {/* Your filters content goes here */}
+      </div>
+
+      <div className="map-section">
+        <MapComponent onMapClick={handleMapClick} newEventLocation={newEventLocation} />
+        <button onClick={toggleEditMode}>
+          {isEditMode ? 'Disable Edit Mode' : 'Enable Edit Mode'}
+        </button>
+      </div>
+
+      <div className="list-section">
+        <EventListMainPage />
+      </div>
+
+      {isEditMode && newEventLocation && (
+        <AddEventModal
+          isOpen={true}
+          onClose={() => setNewEventLocation(null)}
+          onSave={handleCreateEvent}
+          location={newEventLocation}
+        />
+      )}
+    </div>
+  );
 };
-
 
 export default MainComponent;
