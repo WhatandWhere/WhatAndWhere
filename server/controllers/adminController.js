@@ -38,13 +38,17 @@ class AdminController {
     async deleteUser(req, res, next) {
         try {
             const { userId } = req.params;
+
+            const deletedUser = await UserInfo.findByPk(userId);
+
             const deleted = await UserInfo.destroy({
                 where: { userInfoId: userId }
             });
 
             if (deleted) {
                 return res.status(200).json({
-                    message: "User deleted successfully"
+                    message: "User deleted successfully",
+                    deletedUser: deletedUser
                 });
             }
 
