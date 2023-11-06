@@ -70,6 +70,9 @@ EventComments.belongsTo(EventDetails);
 UserInfo.hasMany(EventComments);
 EventComments.belongsTo(UserInfo);
 
+EventDetails.belongsTo(Category, { foreignKey: 'categoryId' });
+Category.hasMany(EventDetails, { foreignKey: 'categoryId' });
+
 Category.hasMany(SubCategory);
 SubCategory.belongsTo(Category);
 
