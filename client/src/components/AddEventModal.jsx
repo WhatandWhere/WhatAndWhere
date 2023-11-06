@@ -1,10 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../components/design-files-css/AddEventModal.css';
 
 const AddEventModal = ({ isOpen, onClose, onSave, location }) => {
   const [eventName, setEventName] = useState('');
   const [eventDate, setEventDate] = useState('');
   const [eventDescription, setEventDescription] = useState('');
+  const [eventLocation, setEventLocation] = useState(''); // Define event location state
+
+  // Automatically fill the location input field
+  useEffect(() => {
+    if (location) {
+      // Format the location for display (e.g., latitude and longitude)
+      const locationText = `Latitude: ${location.lat}, Longitude: ${location.lng}`;
+      setEventLocation(locationText);
+    }
+  }, [location]);
 
   const handleSave = () => {
     // You can add validation and data processing here
@@ -12,7 +22,7 @@ const AddEventModal = ({ isOpen, onClose, onSave, location }) => {
       name: eventName,
       date: eventDate,
       description: eventDescription,
-      location: location, // Pass the location data to the onSave function
+      location: eventLocation, // Pass the location data to the onSave function
     });
 
     // Close the modal
@@ -37,6 +47,10 @@ const AddEventModal = ({ isOpen, onClose, onSave, location }) => {
             value={eventDescription}
             onChange={(e) => setEventDescription(e.target.value)}
           ></textarea>
+        </label>
+        <label>
+          Event Location:
+          <input type="text" value={eventLocation} readOnly />
         </label>
         <button onClick={handleSave}>Save Event</button>
       </div>

@@ -7,9 +7,12 @@ import AddEventModal from '../components/AddEventModal';
 const MainComponent = () => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [newEventLocation, setNewEventLocation] = useState(null);
+  const [eventMarkers, setEventMarkers] = useState([]);
+  const [buttonClicked, setButtonClicked] = useState(false);
 
   const toggleEditMode = () => {
     setIsEditMode(!isEditMode);
+    setButtonClicked(true);
   };
 
   const handleMapClick = (e) => {
@@ -19,8 +22,21 @@ const MainComponent = () => {
   };
 
   const handleCreateEvent = (newEvent) => {
-    // Handle the event creation logic here
-    console.log('New Event Data:', newEvent);
+    if (newEventLocation) {
+      // Create a new event marker using the location and event details
+      const eventMarker = {
+        location: newEventLocation,
+        name: newEvent.name,
+        date: newEvent.date,
+        description: newEvent.description,
+      };
+
+      // Add the event marker to the state or send it to a database
+      setEventMarkers([...eventMarkers, eventMarker]);
+
+      // Close the modal
+      setNewEventLocation(null);
+    }
   };
 
   return (
@@ -35,10 +51,13 @@ const MainComponent = () => {
 
       <div className="map-section">
         <MapComponent onMapClick={handleMapClick} newEventLocation={newEventLocation} />
-        <button onClick={toggleEditMode}>
+      </div>
+      <button
+          onClick={toggleEditMode}
+          className={buttonClicked ? (isEditMode ? 'add-edit-event-button-clicked' : 'add-edit-event-button') : 'add-edit-event-button'}
+        >
           {isEditMode ? 'Disable Edit Mode' : 'Enable Edit Mode'}
         </button>
-      </div>
 
       <div className="list-section">
         <EventListMainPage />
