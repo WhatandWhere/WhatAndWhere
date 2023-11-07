@@ -49,7 +49,7 @@ function UserSelectionList() {
                 onClick={() => handleActionClick('attending')}
                 onMouseDown={handleMouseDown}
             >
-                Events I am attending
+                Attending events
             </button>
             <button
                 className={`action-button ${selectedAction === 'favorites' ? 'selected' : ''}`}
