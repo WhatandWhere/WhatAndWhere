@@ -27,29 +27,31 @@
   height: 1em;
 }
 
-.MapContainer .leaflet-control-zoom-in:hover, .MapContainer .leaflet-control-zoom-out:hover {
+.MapContainer .leaflet-control-zoom-in:hover, .MapContainer .leaflet-control-zoom-out, .MapContainer .address-search:hover {
   opacity: 1; /* Adjust the opacity for the hover effect */
 }
 
 /* Add this CSS for the address search container */
 .MapContainer .address-search {
   position: absolute;
-  top: 70px; /* Adjust the top position as needed */
-  left: 10px; /* Adjust the left position as needed */
+  bottom: calc(100% - 12.5rem); /* Position it at the bottom, adjust the value as needed */
+  left: 0.5rem; /* Adjust the left position as needed */
   z-index: 1000; /* Ensure it's above other elements */
   background-color: #fff;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 0.5rem;
   display: flex;
   align-items: center;
-  padding: 5px;
-  max-width: 200px;
+  padding: 0.5rem;
+  max-width: 12.5rem;
+  opacity: 0.5;
+  transition: opacity 0.2s;
 }
 
 .MapContainer .address-search input {
   border: none;
   outline: none;
-  padding: 5px;
+  padding: 0.5rem;
   flex-grow: 1;
 }
 
@@ -58,8 +60,10 @@
   outline: none;
   background-color: #007BFF;
   color: #fff;
-  padding: 5px 10px;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+  padding: 0.5rem 1rem;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
   cursor: pointer;
+  margin-left: 0.5rem;
 }
+
