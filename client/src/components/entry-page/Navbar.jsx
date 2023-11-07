@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-scroll";
 import { Button } from "./Button";
 import "../../components/design-files-css/entry-page/Navbar.css";
+import Sidebar from "./SideBar.jsx";
 
 export default function NavBar() {
   return (
@@ -38,6 +39,7 @@ export default function NavBar() {
               About
             </Link>
             <Button buttonStyle="primary-medium">SIGN UP</Button>
+            <Sidebar />
           </div>
         </div>
       </nav>
