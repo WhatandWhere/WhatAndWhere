@@ -1,15 +1,17 @@
 import React from 'react';
 import UpperPartOfThePage from '../components/profile-page-components/UpperPartOfThePage';
 import UserSelectionList from "../components/profile-page-components/UserSelectionList";
-import EventsTab from "../components/profile-page-components/EventTab";
+import Header from "../components/Header";
+import EventListMainPage from "../components/EventListMainPage";
 
 
 function ProfilePage() {
     return (
         <div className="main-page">
+            <Header/>
             <UpperPartOfThePage />
             <UserSelectionList/>
-            <EventsTab/>
+            <EventListMainPage/>
         </div>
     );
 }
