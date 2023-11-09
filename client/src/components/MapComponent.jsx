@@ -13,6 +13,8 @@ const MapComponent = ({ onMapClick, newEventLocation }) => {
   const mapCenter = [51.10978812505445, 17.03095731439865];
   const zoomLevel = 14;
   const mapRef = useRef();
+  const [selectedSuggestion, setSelectedSuggestion] = useState(null);
+
 
   const customIcon = new L.Icon({
     iconUrl: './pin.png',
@@ -53,11 +55,11 @@ const MapComponent = ({ onMapClick, newEventLocation }) => {
 
   useEffect(() => {
     const map = mapRef.current;
-  
+
     const clickHandler = (e) => {
       handleClick(e);
     };
-  
+
     const locateControl = L.control.locate({
       drawCircle: true,
       follow: true,
@@ -76,19 +78,19 @@ const MapComponent = ({ onMapClick, newEventLocation }) => {
         maxZoom: 16,
       },
     });
-  
+
     if (map) {
       // Initialize Locate Control
       locateControl.addTo(map);
       //locateControl.start(); //to start the page directly from the user's location
-      
+
       // Clear existing click handlers
       map.off('click', clickHandler);
-  
+
       // Add the new click handler
       map.on('click', clickHandler);
     }
-  
+
     // Cleanup when the component unmounts
     return () => {
       if (map) {
@@ -97,10 +99,10 @@ const MapComponent = ({ onMapClick, newEventLocation }) => {
       }
     };
   }, [onMapClick, handleClick]);
-  
-  
-  
-// locate me outside of useEffect
+
+
+
+  // locate me outside of useEffect
 /*   const initLocateControl = () => {
     const lc = L.control.locate({
       drawCircle: true, // Do not show a circle representing accuracy
@@ -122,25 +124,11 @@ const MapComponent = ({ onMapClick, newEventLocation }) => {
     //lc.start(); //to start the page directly from the user's location
   }; */
 
+
+
+
   const [searchQuery, setSearchQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
-  const handleAddressSearch = async () => {
-    if (searchQuery) {
-      try {
-        const response = await axios.get(
-          `https://nominatim.openstreetmap.org/search?format=json&q=${searchQuery}`
-        );
-        if (response.data.length > 0) {
-          const { lat, lon } = response.data[0];
-          mapRef.current.setView([lat, lon], zoomLevel);
-        }
-      } catch (error) {
-        console.error('Error searching for address:', error);
-      }
-    }
-    setSuggestions([]); // Clear suggestions after selecting one
-
-  };
 
   const handleSearchInputChange = async (e) => {
     const inputQuery = e.target.value;
@@ -159,7 +147,33 @@ const MapComponent = ({ onMapClick, newEventLocation }) => {
 
   const handleSuggestionClick = (suggestion) => {
     setSearchQuery(suggestion);
+    setSelectedSuggestion(suggestion); // Add a state to track the selected suggestion
+    // You can choose to clear suggestions or not based on your requirements
+    // setSuggestions([]);
+  };
+
+  const handleAddressSearch = async () => {
+    if (searchQuery) {
+      try {
+        const response = await axios.get(
+          `https://nominatim.openstreetmap.org/search?format=json&q=${searchQuery}`
+        );
+        if (response.data.length > 0) {
+          const { lat, lon } = response.data[0];
+          mapRef.current.setView([lat, lon], zoomLevel);
+        }
+      } catch (error) {
+        console.error('Error searching for address:', error);
+      }
+    }
     setSuggestions([]); // Clear suggestions after selecting one
+  };
+
+  const handleSearchInputBlur = () => {
+    // Clear suggestions only if no suggestion was selected
+    if (!selectedSuggestion) {
+      setSuggestions([]);
+    }
   };
 
   return (
@@ -176,18 +190,20 @@ const MapComponent = ({ onMapClick, newEventLocation }) => {
 
       <div className="search-box">
         <input
-            className='input-search'
-            type="text"
-            placeholder="Search..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                handleAddressSearch();
-              }
-            }}
+          className='input-search'
+          type="text"
+          placeholder="Search..."
+          value={searchQuery}
+          onChange={handleSearchInputChange}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              handleAddressSearch();
+            }
+          }}
         />
-        <button className="btn-search" onClick={handleAddressSearch}><img src="/magnifying-glass.png" alt='mglass'/></button>
+        <button className="btn-search" onClick={handleAddressSearch}>
+          <img src="/magnifying-glass.png" alt='mglass'/>
+        </button>
         {suggestions.length > 0 && (
           <SearchSuggestions suggestions={suggestions} onSuggestionClick={handleSuggestionClick} />
         )}

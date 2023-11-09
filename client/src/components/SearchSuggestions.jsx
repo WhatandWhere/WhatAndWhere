@@ -1,4 +1,5 @@
 import React from 'react';
+import '../components/design-files-css/SearchSuggestions.css';
 
 const SearchSuggestions = ({ suggestions, onSuggestionClick }) => {
   return (
