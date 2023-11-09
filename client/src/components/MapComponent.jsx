@@ -5,6 +5,8 @@ import L from 'leaflet';
 import '../components/design-files-css/Map.css';
 import EventPopup from '../components/EventPopup.jsx';
 import axios from 'axios';
+import 'leaflet.locatecontrol/dist/L.Control.Locate.css'; // Import the CSS for the Locate control
+import 'leaflet.locatecontrol'; // Import the Locate control
 
 const MapComponent = ({ onMapClick, newEventLocation }) => {
   const mapCenter = [51.10978812505445, 17.03095731439865];
@@ -50,9 +52,31 @@ const MapComponent = ({ onMapClick, newEventLocation }) => {
 
   useEffect(() => {
     if (mapRef.current) {
+      initLocateControl();
       mapRef.current.on('click', handleClick);
     }
   }, [onMapClick]);
+
+  const initLocateControl = () => {
+    const lc = L.control.locate({
+      drawCircle: true, // Do not show a circle representing accuracy
+      follow: true, // Continuously follow the user's location
+      setView: 'untilPan', // Set the view to the user's location until the user pans the map
+      cacheLocation: true, // Cache the user's location to improve performance
+      onLocationError: (err) => {
+        alert(err.message);
+      },
+      onLocationOutsideMapBounds: () => {
+        alert('You are located outside the map bounds.');
+      },
+      strings: {
+        title: 'Locate Me', // Customize the button title
+      },
+    });
+  
+    lc.addTo(mapRef.current); // Add the control to your map
+    //lc.start(); //to start the page directly from the user's location
+  };
 
   const [searchQuery, setSearchQuery] = useState('');
   const handleAddressSearch = async () => {
@@ -83,15 +107,21 @@ const MapComponent = ({ onMapClick, newEventLocation }) => {
         maxZoom={19}
       />
 
-      <div className="address-search">
-          <input
+      <div className="search-box">
+        <input
+            className='input-search'
             type="text"
-            placeholder="Search Address"
+            placeholder="Search..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <button onClick={handleAddressSearch}>Search</button>
-        </div>
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleAddressSearch();
+              }
+            }}
+        />
+        <button className="btn-search" onClick={handleAddressSearch}><img src="/magnifying-glass.png" alt='mglass'/></button>
+      </div>
 
       {markers.map((marker, index) => (
         <Marker key={index} position={marker.position} icon={customIcon}>

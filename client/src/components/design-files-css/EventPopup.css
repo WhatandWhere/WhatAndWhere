@@ -45,7 +45,7 @@
   
   /* Styling the Event Tag in Popups */
   .leaflet-popup-content .event-tag {
-    background: white;
+    background: #f5f7f6;
     padding: 0.25rem 0.5rem;
     border-radius: 5px;
     font-size: 0.65rem;

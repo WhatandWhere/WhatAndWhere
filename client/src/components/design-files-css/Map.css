@@ -8,7 +8,7 @@
 
 /* Styling the Map Marker */
 .MapContainer .leaflet-marker-icon {
-  color: #ff5733;
+  color: #ff5600;
   font-size: 1.5em;
 }
 
@@ -31,39 +31,124 @@
   opacity: 1; /* Adjust the opacity for the hover effect */
 }
 
-/* Add this CSS for the address search container */
-.MapContainer .address-search {
+/* Customize the Locate Control button */
+.MapContainer .leaflet-control-locate {
+  background-color: #007BFF;
+  top: -0.5rem;
+  left: 0.15rem;
+  border: 5px solid #007BFF;
+  color: #f5f7f6;
+  border-radius: 50%;
+  width: 2em; /* Change the button width using em units */
+  height: 2em; /* Change the button height using em units */
+  cursor: pointer;
+  box-shadow: 0 0 0.3em #101820; /* Change box-shadow using em units */
+  z-index: 1001;
+}
+
+/* Customize the Locate Control button on hover */
+.MapContainer .leaflet-control-locate:hover {
+  background-color: #0056b3;
+  z-index: 1001;
+}
+
+/* Customize the Locate Control button when active (after clicking) */
+.MapContainer .leaflet-control-locate.active {
+  background-color: #0056b3;
+  z-index: 1001;
+}
+
+
+.MapContainer * {
+  box-sizing: border-box;
+}
+
+.MapContainer .search-box {
   position: absolute;
-  bottom: calc(100% - 12.5rem); /* Position it at the bottom, adjust the value as needed */
-  left: 0.5rem; /* Adjust the left position as needed */
-  z-index: 1000; /* Ensure it's above other elements */
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 0.5rem;
+  top: 10rem; /* Adjust the distance from the zoom control */
+  left: 0.2rem;
+  z-index: 1000;
   display: flex;
   align-items: center;
-  padding: 0.5rem;
-  max-width: 12.5rem;
-  opacity: 0.5;
-  transition: opacity 0.2s;
 }
 
-.MapContainer .address-search input {
-  border: none;
+.MapContainer .search-box .input-search {
+  height: 6vh; /* Use relative height units */
+  width: 6vh; /* Use relative width units */
+  border-style: none;
+  padding: 1vh; /* Use relative padding units */
+  font-size: 1.5vh; /* Use relative font size units */
+  letter-spacing: 0.2vh; /* Use relative letter-spacing units */
   outline: none;
-  padding: 0.5rem;
-  flex-grow: 1;
+  border-radius: 50%; /* Make it a circle */
+  transition: all 0.5s ease-in-out;
+  background: linear-gradient(-45deg, #101820 5%, #ff5600 95%);
+  padding-right: 3vh; /* Use relative padding units */
+  color: #f5f7f6;
 }
 
-.MapContainer .address-search button {
-  border: none;
+.MapContainer .search-box .input-search::placeholder {
+  color: #bbbcbc;
+  font-size: 1.5vh; /* Use relative font size units */
+  letter-spacing: 0.2vh; /* Use relative letter-spacing units */
+  font-weight: 100;
+  opacity: 0;
+}
+
+.MapContainer .search-box .input-search:focus::placeholder {
+  opacity: 1; /* Make the placeholder visible when focused */
+}
+
+.MapContainer .search-box .btn-search {
+  width: 5vh; /* Use relative width units */
+  height: 5vh; /* Use relative height units */
+  border-style: none;
+  font-size: 1.8vh; /* Use relative font size units */
+  font-weight: bold;
   outline: none;
-  background-color: #007BFF;
-  color: #fff;
-  padding: 0.5rem 1rem;
-  border-top-right-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem;
   cursor: pointer;
-  margin-left: 0.5rem;
+  border-radius: 50%; /* Make it a circle */
+  position: absolute;
+  right: 0;
+  color: #f5f7f6;
+  background-color: transparent;
+  pointer-events: painted;
+  overflow: hidden;
+  padding-right: 2em;
 }
 
+.MapContainer .search-box .btn-search img {
+  width: 85%; /* Allow the image to fill the button's width */
+  height: auto; /* Let the height adjust automatically to maintain aspect ratio */
+  position: absolute; /* Position the image absolutely within the button */
+  top: 50%; /* Position the image vertically centered */
+  left: 50%; /* Position the image horizontally centered */
+  transform: translate(-50%, -50%); /* Adjust to center the image precisely */
+  padding: 20%;
+}
+
+
+
+.MapContainer .search-box .btn-search:focus ~ .input-search {
+  width: 30vh; /* Use relative width units */
+  border-radius: 5%; /* Reset border-radius */
+  background-color: #bbbcbc;
+  border-bottom: 1px solid #bbbcbc;
+  transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
+}
+
+.MapContainer .search-box .input-search:focus {
+  width: 20vh; /* Use relative width units */
+  border-radius: 5%; /* Reset border-radius */
+  background-color: #101820;
+  border-bottom: 1px solid #bbbcbc;
+  transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
+}
+
+.MapContainer .search-box .input-search:hover {
+  z-index: 2;
+}
+
+.MapContainer .search-box .input-search:focus ~ .btn-search{
+  z-index: 1001;
+}
