@@ -7,6 +7,7 @@ import EventPopup from '../components/EventPopup.jsx';
 import axios from 'axios';
 import 'leaflet.locatecontrol/dist/L.Control.Locate.css'; // Import the CSS for the Locate control
 import 'leaflet.locatecontrol'; // Import the Locate control
+import SearchSuggestions from '../components/SearchSuggestions';
 
 const MapComponent = ({ onMapClick, newEventLocation }) => {
   const mapCenter = [51.10978812505445, 17.03095731439865];
@@ -14,7 +15,7 @@ const MapComponent = ({ onMapClick, newEventLocation }) => {
   const mapRef = useRef();
 
   const customIcon = new L.Icon({
-    iconUrl: './peopleparty.png',
+    iconUrl: './pin.png',
     iconSize: [32, 32],
     iconAnchor: [16, 32],
   });
@@ -51,13 +52,56 @@ const MapComponent = ({ onMapClick, newEventLocation }) => {
   };
 
   useEffect(() => {
-    if (mapRef.current) {
-      initLocateControl();
-      mapRef.current.on('click', handleClick);
+    const map = mapRef.current;
+  
+    const clickHandler = (e) => {
+      handleClick(e);
+    };
+  
+    const locateControl = L.control.locate({
+      drawCircle: true,
+      follow: true,
+      setView: 'untilPan',
+      cacheLocation: true,
+      onLocationError: (err) => {
+        alert(err.message);
+      },
+      onLocationOutsideMapBounds: () => {
+        alert('You are located outside the map bounds.');
+      },
+      strings: {
+        title: 'Locate Me',
+      },
+      locateOptions: {
+        maxZoom: 16,
+      },
+    });
+  
+    if (map) {
+      // Initialize Locate Control
+      locateControl.addTo(map);
+      //locateControl.start(); //to start the page directly from the user's location
+      
+      // Clear existing click handlers
+      map.off('click', clickHandler);
+  
+      // Add the new click handler
+      map.on('click', clickHandler);
     }
-  }, [onMapClick]);
-
-  const initLocateControl = () => {
+  
+    // Cleanup when the component unmounts
+    return () => {
+      if (map) {
+        map.off('click', clickHandler);
+        map.removeControl(locateControl);
+      }
+    };
+  }, [onMapClick, handleClick]);
+  
+  
+  
+// locate me outside of useEffect
+/*   const initLocateControl = () => {
     const lc = L.control.locate({
       drawCircle: true, // Do not show a circle representing accuracy
       follow: true, // Continuously follow the user's location
@@ -76,9 +120,10 @@ const MapComponent = ({ onMapClick, newEventLocation }) => {
   
     lc.addTo(mapRef.current); // Add the control to your map
     //lc.start(); //to start the page directly from the user's location
-  };
+  }; */
 
   const [searchQuery, setSearchQuery] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
   const handleAddressSearch = async () => {
     if (searchQuery) {
       try {
@@ -93,6 +138,28 @@ const MapComponent = ({ onMapClick, newEventLocation }) => {
         console.error('Error searching for address:', error);
       }
     }
+    setSuggestions([]); // Clear suggestions after selecting one
+
+  };
+
+  const handleSearchInputChange = async (e) => {
+    const inputQuery = e.target.value;
+    setSearchQuery(inputQuery);
+
+    try {
+      const suggestionsResponse = await axios.get(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${inputQuery}`
+      );
+      const suggestionData = suggestionsResponse.data.map((suggestion) => suggestion.display_name);
+      setSuggestions(suggestionData);
+    } catch (error) {
+      console.error('Error fetching search suggestions:', error);
+    }
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    setSearchQuery(suggestion);
+    setSuggestions([]); // Clear suggestions after selecting one
   };
 
   return (
@@ -121,6 +188,9 @@ const MapComponent = ({ onMapClick, newEventLocation }) => {
             }}
         />
         <button className="btn-search" onClick={handleAddressSearch}><img src="/magnifying-glass.png" alt='mglass'/></button>
+        {suggestions.length > 0 && (
+          <SearchSuggestions suggestions={suggestions} onSuggestionClick={handleSuggestionClick} />
+        )}
       </div>
 
       {markers.map((marker, index) => (
