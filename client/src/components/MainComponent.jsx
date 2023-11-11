@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import EventListMainPage from './EventListMainPage';
 import MapComponent from '../components/MapComponent';
-import TopBarComponent from '../components/TopBarComponent';
 import AddEventModal from '../components/AddEventModal';
+import NavBar from '../components/entry-page/Navbar';
 
 const MainComponent = () => {
   const [isEditMode, setIsEditMode] = useState(false);
@@ -42,7 +42,7 @@ const MainComponent = () => {
   return (
     <div className="main-page-all">
       <div className="top-bar">
-        <TopBarComponent />
+        <NavBar />
       </div>
 
       <div className="filter-section">
