@@ -1,8 +1,23 @@
+body {
+    background-color: #101820;
+}
+
 /* Page container */
 .main-page-all {
     display: flex;
     flex-wrap: wrap;
     z-index: 1;
+    background-color: #101820;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+/* Add padding between containers */
+.main-page-all > * {
+    margin: 0.5em;
 }
 
 /* TopBar Section (100% width) */
@@ -18,9 +33,10 @@
 /* Filter Section (1/3 width) */
 .main-page-all .filter-section {
     flex: 1; /* Take 1/3 of available width */
-    background-color: #0000ff;
+    background-color: #F5F7F6;
     padding: 1em;
-    border: 0.125em solid #ddd;
+    border: 0.5em solid #0f4c81;
+    border-radius: 3em;
     box-sizing: border-box; /* Include padding and border in width */
 }
 
@@ -28,16 +44,66 @@
 .main-page-all .map-section {
     flex: 2; /* Take 2/3 of available width */
     display: flex; /* Use flex layout within the map section */
-    background-color: #00ff00;
-    border: 0.125em solid #ccc;
+    background-color: #F5F7F6;
+    border: 0.5em solid #FF5600;
+    border-radius: 7em;
     box-sizing: border-box; /* Include padding and border in width */
     overflow: hidden; /* Hide overflowing content */
+    position: relative;
+    z-index: 1;
 }
+
+/* Edit Button */
+.main-page-all .add-edit-event-button {
+    position: absolute;
+    bottom: 19%;
+    right: 0%;
+    width: 5%; /* Relative width */
+    height: 10%; /* Relative height (to create a square) */
+    background: linear-gradient(135deg, #101820 5%, #ff5600 95%);
+    color: #f5f7f6;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2; /* Place the button above the map */
+    box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+    transition: transform 0.2s, background 0.2s;
+    font-family: Arial Rounded MT Bold;
+    font-size: 100%;
+  }
+
+  .main-page-all .add-edit-event-button:hover {
+    transform: scale(1.1);
+  }
+
+  .main-page-all .add-edit-event-button-clicked {
+    position: absolute;
+    bottom: 19%;
+    right: 0%;
+    width: 5%; /* Relative width */
+    height: 10%; /* Relative height (to create a square) */
+    background: linear-gradient(135deg, #ff5600 5%, #101820 95%);
+    color: #101820;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2; /* Place the button above the map */
+    box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+    transition: transform 0.2s, background 0.2s;
+    font-family: Arial Rounded MT Bold;
+    font-size: 110%;
+  }
 
 /* List Section (100% width) */
 .main-page-all .list-section {
     width: 100%;
-    background-color: #ff0000;
-    border: 0.125em solid #ddd;
+    background-color: #101820;
+    /* border: 0.125em solid #ddd; */
     box-sizing: border-box;
 }

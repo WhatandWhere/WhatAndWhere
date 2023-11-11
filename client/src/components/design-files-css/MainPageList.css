@@ -73,7 +73,7 @@
 }
 
 .event-tag {
-    background: white;
+    background: #f5f7f6;
     padding: 0.25rem 0.5rem; /* Adjust as necessary */
     border-radius: 5px; /* Adjust as necessary */
     font-size: 0.65rem; /* Smaller than the description font */
