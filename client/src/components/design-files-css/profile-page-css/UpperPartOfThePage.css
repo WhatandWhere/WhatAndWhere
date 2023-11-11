@@ -1,17 +1,17 @@
 .user-profile {
     display: flex;
     align-items: center;
-    justify-content: center; /* This centers the elements horizontally */
+    justify-content: center;
     padding: 2rem;
     font-family: Arial, sans-serif;
 }
 
 .profile-pic {
-    height: calc((3 * (1rem + 1.2rem + 1rem)) + 1.2rem + 2rem + 3rem); /* height of 3 input fields + button + margin */
-    width: auto; /* Adjusts width according to the height while maintaining aspect ratio */
+    height: calc((3 * (1rem + 1.2rem + 1rem)) + 1.2rem + 2rem + 3rem);
+    width: auto;
     border-radius: 1rem;
     margin-right: 7rem;
-    object-fit: cover; /* Increased the gap between the image and the input fields */
+    object-fit: cover;
 }
 
 .user-details {
@@ -39,16 +39,93 @@
     font-size: 1.2rem;
     border: none;
     border-radius: 2rem;
-    background: linear-gradient(90deg, #ff7a00, #ff5500);
+    background: linear-gradient(90deg, #ff7a00, #ff5600);
     color: white;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .edit-button:hover {
-    background: linear-gradient(90deg, #ff5500, #ff7a00);
+    box-shadow: 0px 0px 10px 5px #ff5600;
 }
+
 
 .input-field:focus {
     background: linear-gradient(90deg, rgba(245,245,245,1) 0%, rgba(225,225,225,1) 100%);
+}
+
+.user-profile {
+    position: relative; /* For positioning the pseudo-element */
+    overflow: hidden; /* In case the pseudo-element is bigger than the parent */
+}
+
+.user-profile::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: url('../../../../public/back.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(5px);
+    z-index: -1;
+}
+.text-display {
+    font-size: 1.2rem; /* Matches the font size of .input-field */
+    color: #333; /* Sets the text color; change as needed */
+    padding: 1rem; /* Matches the padding of .input-field */
+    width: 100%; /* Matches the width of .input-field */
+    text-align: left; /* Center the text if desired */
+    margin-bottom: 1rem; /* Matches the margin of .input-field */
+    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(235,235,235,1) 100%); /* Matches the background of .input-field */
+    border-radius: 2rem; /* Matches the border radius of .input-field */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Matches the box-shadow of .input-field */
+}
+
+.edit-button-bold {
+    font-weight: bold;
+    background: linear-gradient(90deg, #2E3587FF, #ff5600);
+    box-shadow: 0px 0px 10px 5px #ff5600;
+}
+
+/*.profile-pic-upload {*/
+/*    display: block;*/
+/*    width: calc((3 * (1rem + 1.2rem + 1rem)) + 1.2rem + 2rem + 3rem); !* same as .profile-pic width *!*/
+/*    height: calc((3 * (1rem + 1.2rem + 1rem)) + 1.2rem + 2rem + 3rem); !* same as .profile-pic height *!*/
+/*    margin-right: 7rem;*/
+/*    border-radius: 1rem; !* same as .profile-pic border-radius *!*/
+/*    object-fit: cover;*/
+/*    padding: 0;*/
+/*    cursor: pointer;*/
+/*}*/
+
+/* Hide the default file input styling */
+.profile-pic-upload::-webkit-file-upload-button {
+    visibility: hidden;
+}
+.profile-pic-upload::before {
+    content: 'Select a new profile picture';
+    display: inline-block;
+    background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    text-shadow: 1px 1px #fff;
+    font-weight: 700;
+    font-size: 10pt;
+}
+
+.profile-pic-upload:hover::before {
+    border-color: black;
+}
+
+.profile-pic-upload:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }

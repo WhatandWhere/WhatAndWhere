@@ -1,0 +1,10 @@
+.bottom-part{
+    border: 1px solid #ddd; /* subtle border, change color as needed */
+    border-radius: 8px; /* rounded corners for the container */
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1); /* shadow for depth */
+    padding: 1rem; /* spacing inside the container */
+    /*margin: 1rem; !* spacing outside the container *!*/
+    background: linear-gradient(360deg, rgb(16, 24, 32) 70%, rgb(136, 139, 141) 100%); /* white background, change as needed */
+}
+
+
