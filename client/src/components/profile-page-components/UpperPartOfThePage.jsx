@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../design-files-css/profile-page-css/UpperPartOfThePage.css';
 
-function UpperPartOfThePage() {
+function UpperPartOfThePage({ showEditButton }) {
     const username = "MockUsername";
     const userEmail = "m1@gmail.com";
     const userPhone = "+9900000000";
@@ -101,14 +101,20 @@ function UpperPartOfThePage() {
                         <div className="text-display">{phone}</div>
                     </>
                 )}
-                <button onClick={isEditing ? saveChanges : () => setIsEditing(true)}
-                        className={`edit-button ${isEditing ? 'edit-button-bold' : ''}`}>
-                    {isEditing ? 'Save changes' : 'Edit user details'}
-                </button>
+                {showEditButton && ( // Only render the button if showEditButton is true
+                    <button onClick={isEditing ? saveChanges : () => setIsEditing(true)}
+                            className={`edit-button ${isEditing ? 'edit-button-bold' : ''}`}>
+                        {isEditing ? 'Save changes' : 'Edit user details'}
+                    </button>
+                )}
 
             </div>
         </div>
     );
 }
+
+UpperPartOfThePage.defaultProps = {
+    showEditButton: true,
+};
 
 export default UpperPartOfThePage;

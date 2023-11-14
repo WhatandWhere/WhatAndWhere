@@ -7,6 +7,8 @@ import MainPage from './pages/MainPage.jsx';
 import TermsAndConditionsPage from './pages/TermsAndConditionsPage.jsx';
 import './App.css';
 import ProfilePage from './pages/ProfilePage.jsx';
+import EventManagersProfilePage from './pages/EventManagersProfilePage.jsx';
+
 
 function App() {
     return (
@@ -19,6 +21,7 @@ function App() {
                     <Route path="/mainpage" element={<MainPage/>}/>
                     <Route path="/termsAndConditions" element={<TermsAndConditionsPage/>}/>
                     <Route path="/profile" element={<ProfilePage/>}/>
+                    <Route path="/emprofile" element={<EventManagersProfilePage/>}/>
                 </Routes>
             </div>
         </Router>
