@@ -7,28 +7,57 @@ function UpperPartOfThePage() {
     const userPhone = "+9900000000";
     const userProfilePic = "/placeholder-avatar.png";
     const [isEditing, setIsEditing] = useState(false);
-    const [isButtonBold, setIsButtonBold] = useState(false);
     const [email, setEmail] = useState(userEmail);
     const [phone, setPhone] = useState(userPhone);
     const [profilePic, setProfilePic] = useState(userProfilePic);
 
-    const handleButtonClick = () => {
-        setIsEditing(!isEditing); // Toggle the editing mode
-        if (isEditing) {
-            // If we're not in edit mode, we will save the current values
-            console.log('Values saved:', { email, phone });
-            alert('Values saved!');
-        }
-        setIsButtonBold(!isButtonBold);
-    };
-
     // Function to handle profile picture change
     const handleProfilePicChange = (e) => {
         const file = e.target.files[0];
+        const maxFileSize = 2 * 1024 * 1024;
+
         if (file) {
-            // Assuming you want to display the image without saving it to a server
+            if (!file.type.startsWith('image/')) {
+                alert('Please upload an image file.');
+                return;
+            }
+
+            if (file.size > maxFileSize) {
+                alert('File is too large. Please upload an image smaller than 2MB.');
+                return;
+            }
+
             setProfilePic(URL.createObjectURL(file));
         }
+    };
+
+    // Function to validate email using regex pattern
+    const validateEmail = (email) => {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple email regex pattern
+        return re.test(email);
+    };
+
+    // Function to validate phone number to ensure it starts with a plus and contains digits
+    const validatePhone = (phone) => {
+        const re = /^\+[0-9]*$/; // Phone number regex pattern
+        return re.test(phone);
+    };
+
+    // Call this function to save changes
+    const saveChanges = () => {
+        // Validate email and phone before saving
+        if (!validateEmail(email)) {
+            alert('Please enter a valid email address.');
+            return;
+        }
+        if (!validatePhone(phone)) {
+            alert('Phone number must start with a plus sign and contain only numbers.');
+            return;
+        }
+        // If we're not in edit mode, we will save the current values
+        console.log('Values saved:', { email, phone });
+        alert('Values saved!');
+        setIsEditing(false); // Exit editing mode
     };
 
     return (
@@ -52,12 +81,14 @@ function UpperPartOfThePage() {
                 {isEditing ? (
                     <>
                         <input
+                            type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="Email"
                             className="input-field"
                         />
                         <input
+                            type = "tel"
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
                             placeholder="Phone"
@@ -70,8 +101,8 @@ function UpperPartOfThePage() {
                         <div className="text-display">{phone}</div>
                     </>
                 )}
-                <button onClick={handleButtonClick}
-                        className={`edit-button ${isButtonBold ? 'edit-button-bold' : ''}`}>
+                <button onClick={isEditing ? saveChanges : () => setIsEditing(true)}
+                        className={`edit-button ${isEditing ? 'edit-button-bold' : ''}`}>
                     {isEditing ? 'Save changes' : 'Edit user details'}
                 </button>
 
